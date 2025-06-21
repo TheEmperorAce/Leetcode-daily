@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int maxDistance(string s, int k) {
+        int ans = 0, e = 0, w = 0, n = 0, s_ = 0;
+
+        for (int i = 0; i < s.length(); i++) {
+            if (s[i] == 'E') e++;
+            else if (s[i] == 'W') w++;
+            else if (s[i] == 'N') n++;
+            else s_++;  
+
+            int dist = abs(e - w) + abs(n - s_);
+            int wasted = (i + 1) - dist;
+            int final_dist = dist + min(2 * k, wasted);
+
+            ans = max(ans, final_dist);
+        }
+
+        return ans;
+    }
+};
