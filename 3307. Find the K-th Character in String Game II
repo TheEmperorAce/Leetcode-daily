@@ -1,0 +1,25 @@
+class Solution {
+public:
+    char kthCharacter(long long k, vector<int>& ops) {
+        int shift = 0;
+        vector<long long> lens;
+        long long len = 1;
+
+        for (int op : ops) {
+            len *= 2;
+            lens.push_back(len);
+            if (len >= k) break;
+        }
+
+        for (int i = lens.size() - 1; i >= 0; --i) {
+            long long half = lens[i] / 2;
+            int op = ops[i];
+            if (k > half) {
+                k -= half;
+                if (op == 1) shift++;
+            }
+        }
+
+        return (char)((('a' - 'a' + shift) % 26) + 'a');
+    }
+};
